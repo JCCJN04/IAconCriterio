@@ -1,75 +1,79 @@
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
+import { CheckCircle } from 'lucide-react';
+
 export function ModulesSection() {
   const modules = [
     {
-      number: "0",
-      title: "Inicio: El Desafío",
-      description: "Introducción al problema de la dependencia de IA y sus implicaciones éticas",
-      icon: "🎯",
+      title: "Módulo 1: La IA Desmitificada",
+      description: "Entender qué es la IA, cómo funciona, y reconocer sus sesgos y limitaciones para usarla con una perspectiva informada.",
+      learnings: [
+        "Diferenciar entre IA generativa y otros tipos de IA.",
+        "Identificar errores y sesgos comunes en modelos de lenguaje.",
+        "Evaluar la fiabilidad de la información generada por IA."
+      ]
     },
     {
-      number: "1",
-      title: "La IA Desmitificada",
-      description: "Qué es la IA, cómo funciona, sus errores, sesgos y limitaciones reales",
-      icon: "🧠",
+      title: "Módulo 2: El Arte de Preguntar",
+      description: "Aprender a formular prompts efectivos que transformen a la IA de un simple ejecutor a un colaborador creativo y analítico.",
+      learnings: [
+        "Aplicar técnicas de 'prompt engineering' para obtener mejores resultados.",
+        "Usar la IA para explorar ideas, no solo para obtener respuestas.",
+        "Fomentar un diálogo iterativo con la IA para refinar el pensamiento."
+      ]
     },
     {
-      number: "2",
-      title: "De Respuestas a Preguntas",
-      description: "Técnicas para hacer mejores prompts y aprender a pensar con la IA",
-      icon: "💡",
+      title: "Módulo 3: Protocolo Ético y Voz Propia",
+      description: "Establecer un marco para el uso ético de la IA, asegurando la integridad académica y la originalidad del trabajo.",
+      learnings: [
+        "Implementar un protocolo para el uso responsable de herramientas de IA.",
+        "Citar y atribuir correctamente contenido generado o asistido por IA.",
+        "Desarrollar una voz auténtica que integre la IA como herramienta, no como fuente."
+      ]
     },
     {
-      number: "3",
-      title: "Auditoría Crítica (Actividad)",
-      description: "Comparar resultados de tareas realizadas con y sin ayuda de IA",
-      icon: "🔍",
-    },
-    {
-      number: "4",
-      title: "Protocolo Ético y Originalidad",
-      description: "Uso responsable de la IA, citación correcta y atribución de contenido",
-      icon: "⚖️",
-    },
-    {
-      number: "5",
-      title: "Debate Final y Cierre",
-      description: "Discusión colaborativa de dilemas éticos reales en la era digital",
-      icon: "🎭",
+      title: "Módulo 4: Integración Práctica y Debate",
+      description: "Aplicar lo aprendido en un debate sobre dilemas éticos contemporáneos y presentar un proyecto final que demuestre un uso consciente de la IA.",
+      learnings: [
+        "Analizar y debatir sobre casos reales de ética en IA.",
+        "Construir un proyecto que refleje un uso equilibrado y crítico de la IA.",
+        "Presentar conclusiones y reflexiones sobre el rol de la IA en su disciplina."
+      ]
     },
   ]
 
   return (
     <section id="modulos" className="py-16 md:py-24 px-4 md:px-6 bg-background">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-foreground mb-4">Contenido del Taller</h2>
-          <p className="text-lg text-muted-foreground">Una experiencia de aprendizaje estructurada en 6 módulos</p>
+      <div className="container mx-auto max-w-4xl">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-bold text-foreground mb-4">¿Qué Aprenderás?</h2>
+          <p className="text-lg text-muted-foreground">Un temario diseñado para darte control y confianza en la era de la IA.</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <Accordion type="single" collapsible className="w-full space-y-4">
           {modules.map((module, index) => (
-            <div
-              key={index}
-              className="relative bg-card border border-border rounded-xl p-6 hover:border-primary/50 transition-all group"
-            >
-              <div className="flex items-start gap-4">
-                <div className="text-3xl flex-shrink-0">{module.icon}</div>
-                <div className="flex-1">
-                  <div className="inline-block px-2 py-1 bg-primary/10 rounded text-xs font-semibold text-primary mb-2">
-                    Módulo {module.number}
-                  </div>
-                  <h3 className="font-bold text-lg text-foreground mb-2">{module.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{module.description}</p>
-                </div>
-              </div>
-              {index < modules.length - 1 && (
-                <div className="hidden lg:block absolute -right-4 top-1/2 transform -translate-y-1/2 text-muted-foreground">
-                  →
-                </div>
-              )}
-            </div>
+            <AccordionItem key={index} value={`item-${index}`} className="bg-card border border-border rounded-xl px-6">
+              <AccordionTrigger className="text-lg font-semibold text-left hover:no-underline">
+                {module.title}
+              </AccordionTrigger>
+              <AccordionContent className="pt-4">
+                <p className="text-muted-foreground mb-6">{module.description}</p>
+                <ul className="space-y-3">
+                  {module.learnings.map((learning, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+                      <span className="text-foreground">{learning}</span>
+                    </li>
+                  ))}
+                </ul>
+              </AccordionContent>
+            </AccordionItem>
           ))}
-        </div>
+        </Accordion>
       </div>
     </section>
   )
